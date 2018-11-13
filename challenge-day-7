@@ -1,0 +1,131 @@
+const person = {
+  firstName: 'Bob',
+  lastName: 'Ross',
+  age: '54',
+  favoriteThings: ['Happy little Trees', 'Happy Accidents', 'Groves', 'Mountains'],
+  children: [
+    {
+      firstName: 'Morgan',
+      lastName: 'Ross',
+      age: '32',
+      favoriteThings: ['Hiking', 'singing'],
+      children: [
+        {
+          firstName: 'Todd',
+          lastName: 'Ross',
+          age: '9',
+          favoriteThings: ['Rain Dancing', 'Drawing'],
+          birthday() {
+            return ++this.age;
+          },
+          greet(greeter) {
+            return `Hello ${greeter}, My name is ${this.firstName} ${this.lastName}. do you like ${
+              this.favoriteThings[0]
+            }?`;
+          },
+        },
+        {
+          firstName: 'Doug',
+          lastName: 'Ross',
+          age: '11',
+          favoriteThings: ['Puddle Splashing', 'Getting Jiggy'],
+          birthday() {
+            return ++this.age;
+          },
+          greet(greeter) {
+            return `Hello ${greeter}, My name is ${this.firstName} ${this.lastName}. do you like ${
+              this.favoriteThings[0]
+            }?`;
+          },
+        },
+      ],
+      birthday() {
+        return ++this.age;
+      },
+      greet(greeter) {
+        return `Hello ${greeter}, My name is ${this.firstName} ${this.lastName}. do you like ${
+          this.favoriteThings[0]
+        }?`;
+      },
+    },
+    {
+      firstName: 'Steve',
+      lastName: 'Ross',
+      age: '35',
+      favoriteThings: ['Yodeling', 'Kareoke'],
+      children: [],
+      birthday() {
+        return ++this.age;
+      },
+      greet(greeter) {
+        return `Hello ${greeter}, My name is ${this.firstName} ${this.lastName}. do you like ${
+          this.favoriteThings[0]
+        }?`;
+      },
+    },
+  ],
+  birthday() {
+    return ++this.age;
+  },
+  greet(greeter) {
+    return `Hello ${greeter}, My name is ${this.firstName} ${this.lastName}. do you like ${this.favoriteThings[0]}?`;
+  },
+};
+
+// Access 'Happy accidents' from Bob's favorite things.
+console.log(person.favoriteThings[1]);
+// Run Bob Ross' greet method.
+console.log(person.greet("Megan"));
+// Access Morgan Ross's age.
+console.log(person.children[0].age);
+// Access 'Singing' from Morgan's favorite things.
+console.log(person.children[0].favoriteThings[1])
+// Run Morgans Birthday method.
+console.log(person.children[0].birthday());
+// Access 'Rain Dancing' from Todd Ross' favorite things.
+console.log(person.children[0].children[0].favoriteThings[1])
+// Run Doug Ross' Greet method.
+console.log(person.children[0].children[1].greet("Megan"))
+// BONUS HARD MODE
+
+// redo all the above items but use nested destructuring to access the items.
+// const { property name of what we are destructering } = objectName
+// const {one, two: {innerTwo: [ animal1, animal 2] } } for nested objects and arrays. Reference arrays by index, so you can't skip items in the array
+
+//access happy accidents
+const {favoriteThings: [, fav1]} = person;
+console.log(fav1);
+
+//access morgans greet method
+const { greet } = person; 
+console.log(greet.bind(person)("Megan"));
+//had to bind because of the `this` keyword
+//could also say: const boundGreet = greet.bind(person)
+
+//access Morgan Ross's Age
+const {children: { [0]: {age} } } = person;
+console.log(age);
+//can also write above like: 
+// const { age } = person.children[0];
+
+//access singing
+const { children: { [0]: {favoriteThings: [ , singing] } } }  = person;
+console.log(singing);
+
+//run morgans birthday method
+// const { children: { [0]: {birthday} } } = person;
+// // const {birthday} = person.children[0];
+// console.log("should be 34", birthday.bind(person)())
+// // ???
+
+//access rain dancing
+const {children: { [0]: {children: { [0]: { favoriteThings: [ rain ] } } } } } = person;
+console.log(rain);
+
+// const {children: { [0]: {children: { greet } } } } = person;
+// const boundGreet = greet.bind(person);
+// console.log(boundGreet());
+//not working
+
+
+
