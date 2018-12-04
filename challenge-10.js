@@ -28,8 +28,6 @@ function vowelCounter(str) {
       case 'U':
         total++
         break;
-      default: 
-        break;
     }
   })
   return total;
